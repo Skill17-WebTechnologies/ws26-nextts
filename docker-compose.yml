@@ -1,0 +1,8 @@
+services:
+  app:
+    build: .
+    ports:
+      - "80:80"
+    environment:
+      # Optional override; when unset the container falls back to .env.prod.
+      DATABASE_URL: "${DATABASE_URL:-}"
