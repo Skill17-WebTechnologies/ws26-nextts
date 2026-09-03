@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+/* The layout's own page styles. They live in Tailwind's `base` layer so that
+   utility classes override them: unlayered CSS outranks every layer, so left
+   loose these would silently beat a class like `bg-white` on <body>. */
+@layer base {
+  body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: #0b1020;
+    color: #e7ecff;
+  }
+}
