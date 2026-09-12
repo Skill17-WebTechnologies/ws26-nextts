@@ -27,6 +27,7 @@ Note that Prisma 7's CLI does not read `.env` by itself; `prisma.config.ts` load
 ## Run it
 
 ```bash
+cp .env.example .env
 docker compose up --build
 ```
 
@@ -70,6 +71,27 @@ Model types come from Prisma. `prisma generate` writes `Task` into the client fr
 `prisma/schema.prisma`, and `lib/prisma.ts` re-exports it — so a schema change becomes a type
 error at the call site instead of a runtime surprise. Run `npx prisma generate` after editing
 the schema, or the types will describe the old shape.
+
+## Checking the connection
+
+```bash
+curl -fsS http://localhost/api/db-check
+```
+
+```json
+{ "ok": true, "driver": "mysql", "host": "db", "port": 3306, "database": "app",
+  "user": "app", "server_version": "8.4.11", "latency_ms": 2,
+  "demo_table": "nextts_tasks present" }
+```
+
+It returns **503** when the connection fails, naming the host, database and user it tried
+and the driver's error code — `ER_ACCESS_DENIED_ERROR` for a wrong password, `ENOTFOUND`
+for a wrong host. The password is never in the response. Every WSC2026 template answers
+the same check, so one command works whatever stack you chose.
+
+Nothing is hardcoded: `lib/prisma.ts`, the `Dockerfile` and `docker-compose.yml` contain no
+host, user or password, and Compose starts the local MySQL server from the same `.env` the
+app reads.
 
 ## Database
 
