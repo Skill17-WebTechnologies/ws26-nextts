@@ -110,9 +110,31 @@ On first boot against a database that already holds other tables, Prisma reports
 SQL directly and records it with `prisma migrate resolve --applied`, so later boots are an
 ordinary no-op. Migrations ship as `CREATE TABLE IF NOT EXISTS` to make that safe.
 
+## Tailwind CSS
+
+Tailwind **4.1.18** is installed and wired up, but nothing in the template uses it — it is here
+for you to reach for if you want it, and it costs nothing if you don't. Add utility classes to
+your markup and they work straight away:
+
+```html
+<div class="rounded-xl bg-slate-800 p-6 text-slate-100">…</div>
+```
+
+`@tailwindcss/postcss` is registered in `postcss.config.mjs`. The entry stylesheet is
+`app/globals.css`, imported from `app/layout.tsx`.
+
+The template's own CSS lives inside Tailwind's `base` layer, and that detail matters: unlayered
+CSS outranks *every* cascade layer, so left as it was a rule like `button { background: … }`
+would silently beat `class="bg-blue-500"` and the class would appear to do nothing. Inside
+`base` those rules still style unclassed elements, while utilities override them as expected.
+
+Tailwind 4 needs no `tailwind.config.js` — it is configured in CSS. Customise the theme with
+`@theme { … }` in `app/globals.css`. Docs: <https://tailwindcss.com/docs>
+
 ## Stack
 
 - Node 24.1.0 / npm 11.5.0
 - Next.js 16.1.6, React 19.2.4
 - TypeScript 5.9 (`@types/node` 24, matching the pinned runtime)
 - Prisma 7.3.0 (`@prisma/adapter-mariadb`, MySQL driver adapter)
+- Tailwind CSS 4.1.18 — installed and configured, use it or ignore it
