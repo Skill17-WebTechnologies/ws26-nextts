@@ -20,7 +20,7 @@ export default async function Home() {
       ) : (
         <p>⚠️ Database not reachable. Check <code>DATABASE_URL</code>.</p>
       )}
-      <p>JSON: <code>GET /api/tasks</code></p>
+      <p>JSON: <code>GET /api/tasks</code> — connection check: <code><a href="/api/db-check" style={{ color: '#7c9cff' }}>/api/db-check</a></code></p>
       <Counter />
     </main>
   )

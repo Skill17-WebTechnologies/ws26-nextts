@@ -1,11 +1,14 @@
 # Next.js 16.1.6 · TypeScript — WSC2026 minimal app
 
 ```bash
+cp .env.example .env
 docker compose up --build
 ```
 
 Open **http://localhost** — a minimal Next.js App Router app in TypeScript (server page +
 client counter). JSON API: `GET /api/tasks`.
+Connection check: `GET /api/db-check` — 200 when the database is reachable, 503 with the
+reason when it is not; see README.md.
 
 The task list is stored in **MySQL** via **Prisma 7.3.0** (`@prisma/adapter-mariadb`).
 `DATABASE_URL` comes from the environment if set, otherwise from `.env.prod`; the entrypoint
