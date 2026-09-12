@@ -14,8 +14,8 @@ The app needs one environment variable, a MySQL connection string, resolved in t
 1. `DATABASE_URL` in the environment (compose, Kubernetes, your shell) — always wins.
 2. `.env` — local development. Copy from `.env.example`. Gitignored, and excluded from the
    Docker build context.
-3. `.env.prod` — the deployed configuration, written per competitor with their own database.
-   The entrypoint copies it to `.env` when the environment supplies nothing.
+3. `.env.prod` — production configuration, baked into the image. The entrypoint copies it to
+   `.env` when the environment supplies nothing.
 
 ```bash
 cp .env.example .env   # then fill in your database
